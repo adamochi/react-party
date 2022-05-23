@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    const Title = () => (
+      <h3 id="Title" onMouseEnter={() => console.log("Mouse Enterrrr")}>
+        Hello I'm a title
+      </h3>
+    );
+    // THE FIRST LETTER OF YOUR COMPONENTS SHOULD START WITH A CAPITAL LETTER, if not, then it will think it is normal html element. JSX SHOULD
+    /*
+    Can write an arrow function like this '= () =>' insead of 
+    'function Button() { 
+      return (
+        <button
+        style={{
+          backgroundColor: "tomato",
+        }}
+        onClick={() => console.log("i'm clicked")}
+      >
+        Click me
+      </button>)}'
+    */
+    const Button = () => (
+      <button
+        style={{
+          backgroundColor: "tomato",
+        }}
+        onClick={() => console.log("i'm clicked")}
+      >
+        Click me
+      </button>
+    );
+
+    const Container = (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
+
+    ReactDOM.render(Container, root);
+  </script>
+</html>
+
+<!-- JSX is a sytax extension and is very similar to normal html
+  everyone use jsx, it is awesome -->
+
+<!-- <script>
+
+    const h3 = React.createElement(
+      "h3",
+      {
+        onMouseEnter: () => console.log("mouse enter"),
+      },
+      "Hello I'm a span"
+      );
+      
+      
+      const btn = React.createElement(
+        "button",
+        {
+          onClick: () => console.log("i am clicked"),
+          style: {
+            backgroundColor: "tomato",
+          },
+        },
+        
+        "Click me"
+        );
+        
+        
+        const container = React.createElement("div", null, [Title, Button]);
+        </script> -->
