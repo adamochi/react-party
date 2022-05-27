@@ -6,15 +6,70 @@
   <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <script type="text/babel">
     const root = document.getElementById("root");
-    const Title = () => (
+    /*  
+    let counter = 0;
+
+    function countUp() {
+      counter = counter + 1;
+      
+      //need to call this function everytime the data changes, and that is not fun
+      
+      // render();
+    }
+    function render() {
+      ReactDOM.render(<Container />, root);
+    }
+*/
+
+    function App() {
+      /*
+      //const data = React.useState(0);
+      //console.log(data);
+      // Whe do we even need a modifier? MODIFIER IS GOING TO TRIGGER A RE RENDER SO WE DON'T NEED TO UPDATE IT WITH MORE CODE.
+      */
+      const [counter, setCounter] = React.useState(0);
+      const clickCounter = () => {
+        //setCounter(counter + 1);
+        setCounter((current) => current + 1);
+        /*      
+         sending a function this way is safer ^^ as it is giving you access to your current state and sending the next state.
+              */
+      };
+      // IF YOU WANT TO CALCULATE A STATE BASED ON A CURRENT STATE, THEN YOU NEED TO USE A FUNCTION.
+      /*
+      function onClick() {
+        setCounter(counter + 1);
+      }
+*/
+      return (
+        <div>
+          <h3>Total Clicks: {counter}</h3>
+          <button onClick={clickCounter}>Click Me</button>
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
+    /*
+    const Container = () => (
+      <div>
+        <h3>Total Clicks: {counter}</h3>
+        <button onClick={countUp}>Click Me</button>
+      </div>
+    );
+    render();
+    */
+  </script>
+</html>
+
+<!-- const Title = () => (
       <h3 id="Title" onMouseEnter={() => console.log("Mouse Enterrrr")}>
         Hello I'm a title
       </h3>
     );
-    // THE FIRST LETTER OF YOUR COMPONENTS SHOULD START WITH A CAPITAL LETTER, if not, then it will think it is normal html element. JSX SHOULD
-    /*
+     THE FIRST LETTER OF YOUR COMPONENTS SHOULD START WITH A CAPITAL LETTER, if not, then it will think it is normal html element. JSX SHOULD
     Can write an arrow function like this '= () =>' insead of 
     'function Button() { 
       return (
@@ -26,7 +81,7 @@
       >
         Click me
       </button>)}'
-    */
+    
     const Button = () => (
       <button
         style={{
@@ -37,22 +92,10 @@
         Click me
       </button>
     );
+JSX is a sytax extension and is very similar to normal html
+  everyone use jsx, it is awesome 
 
-    const Container = (
-      <div>
-        <Title />
-        <Button />
-      </div>
-    );
-
-    ReactDOM.render(Container, root);
-  </script>
-</html>
-
-<!-- JSX is a sytax extension and is very similar to normal html
-  everyone use jsx, it is awesome -->
-
-<!-- <script>
+<script>
 
     const h3 = React.createElement(
       "h3",
@@ -78,3 +121,10 @@
         
         const container = React.createElement("div", null, [Title, Button]);
         </script> -->
+<!-- const food = ["tomato", "potato"];
+        const tomato = food[0];
+      const potato = food[1];
+    const [fave, secondFave] = food;  -->
+<!-- const x = [1, 2, 3];
+const [a,b,c] = x;
+ -->

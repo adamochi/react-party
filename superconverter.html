@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    function App() {
+      const [amount, setAmount] = React.useState(0);
+      const [flipped, setFlipped] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setFlipped((current) => !current);
+      }; // calculating the new state based on the current state
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <div>
+            <label htmnlFor="mins">Minutes</label>
+            <input
+              value={flipped ? amount * 60 : amount}
+              id="mins"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange} // <<<< REQUIRED FOR THIS TO WORK!
+              disabled={flipped === true} // can shorten to flipped
+            />
+            <h3>You want to convert {amount}</h3>
+          </div>
+
+          <div>
+            <label htmnlFor="hrs">Hours</label>
+            <input
+              value={flipped ? amount : Math.round(amount / 60)} // inline if statement
+              id="hrs"
+              placeholder="Hours"
+              type="number"
+              onChange={onChange}
+              disabled={flipped === false} // can shorten to !flipped. hours will be disabled IF flipped is equal to false
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>Flip</button>
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
+
+<!-- We shouldn't use for, use htmlFor  -->
