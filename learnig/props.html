@@ -8,38 +8,52 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    function Btn(props) {
-      console.log(props);
-      // props = properties , so props of btn
+    function Btn({ banana, big, changeValue }) {
+      // Btn(props)
+      // have to put props here!
+      console.log(banana, "was rendered"); // props = properties - props of btn--> banana: 'Save Changes'}
       return (
         <button
+          onClick={changeValue} //<< this is event listener and react will not do by itself
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize: big ? "20px" : "16px",
           }}
         >
-          Save Changes
-        </button>
+          {banana}
+        </button> // or {props.banana}
       );
     }
     function ConfirmBtn() {
       return <button>Confirm</button>;
     }
+
+    const MemorizedBtn = React.memo(Btn);
+    // unless i use memo, all the children under the parent will me re rendered
+    // if the parent component changes. Imagine if you had a thousand components
+    // SO, only if the props change of a Btn, it will render that one again
     function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <Btn banana="Save Changes" />
-          <Btn banana="Continue" />
+          <MemorizedBtn banana={value} big={true} changeValue={changeValue} />
+          <MemorizedBtn banana="Continue" big={false} />
         </div>
       );
-    }
+    } // onClick on the btn here is not an eventListener! it's just a property
     const root = document.getElementById("root");
     ReactDOM.render(<App />, root);
   </script>
 </html>
-<!-- what is the problem props are solving?
-
-  -->
+<!-- 
+  what is the problem props are solving?
+  all buttons look same,
+  We build something reusable
+  we are going to create a component for each button
+  we will send data from the main component to a child component
+-->
