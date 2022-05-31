@@ -3,15 +3,16 @@
   <body>
     <div id="root"></div>
   </body>
-  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    function Btn({ banana, big, changeValue }) {
+    function Btn({ bananaText, changeValue, fontSize = 12 }) {
       // Btn(props)
-      // have to put props here!
-      console.log(banana, "was rendered"); // props = properties - props of btn--> banana: 'Save Changes'}
+      // ^^ have to put props here! and have to use them here >>
+      console.log(bananaText, "was rendered"); // props = properties - props of btn--> bananaText: 'Save Changes'}
       return (
         <button
           onClick={changeValue} //<< this is event listener and react will not do by itself
@@ -21,13 +22,14 @@
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: big ? "20px" : "16px",
+            fontSize,
           }}
         >
-          {banana}
-        </button> // or {props.banana}
+          {bananaText}
+        </button> // or {props.bananaText}
       );
     }
+
     function ConfirmBtn() {
       return <button>Confirm</button>;
     }
@@ -36,13 +38,21 @@
     // unless i use memo, all the children under the parent will me re rendered
     // if the parent component changes. Imagine if you had a thousand components
     // SO, only if the props change of a Btn, it will render that one again
+    Btn.propTypes = {
+      bananaText: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
     function App() {
       const [value, setValue] = React.useState("Save Changes");
       const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <MemorizedBtn banana={value} big={true} changeValue={changeValue} />
-          <MemorizedBtn banana="Continue" big={false} />
+          <MemorizedBtn
+            bananaText={value}
+            fontSize={30}
+            changeValue={changeValue}
+          />
+          <MemorizedBtn bananaText="Continue" />
         </div>
       );
     } // onClick on the btn here is not an eventListener! it's just a property
@@ -56,4 +66,7 @@
   We build something reusable
   we are going to create a component for each button
   we will send data from the main component to a child component
+
+  prop types 
+
 -->
