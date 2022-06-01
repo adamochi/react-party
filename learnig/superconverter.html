@@ -25,7 +25,7 @@
           <div>
             <label htmnlFor="mins">Minutes</label>
             <input
-              value={flipped ? amount * 60 : amount}
+              value={flipped ? (amount * 60).toFixed(2) : amount}
               id="mins"
               placeholder="Minutes"
               type="number"
@@ -38,7 +38,7 @@
           <div>
             <label htmnlFor="hrs">Hours</label>
             <input
-              value={flipped ? amount : Math.round(amount / 60)} // inline if statement
+              value={flipped ? amount : (amount / 60).toFixed(2)} // inline if statement
               id="hrs"
               placeholder="Hours"
               type="number"
@@ -68,7 +68,7 @@
           <div>
             <label htmnlFor="km">Kilometers</label>
             <input
-              value={flipped ? distance * 0.621371 : distance}
+              value={flipped ? (distance * 0.621371).toFixed(2) : distance}
               id="km"
               placeholder="Kilometers"
               type="number"
@@ -81,7 +81,7 @@
           <div>
             <label htmnlFor="mls">Miles</label>
             <input
-              value={flipped ? distance : distance * 1.60934} // inline if statement
+              value={flipped ? distance : (distance * 1.60934).toFixed(2)} // inline if statement
               id="mls"
               placeholder="Miles"
               type="number"
